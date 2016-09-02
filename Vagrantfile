@@ -51,7 +51,7 @@ Vagrant.configure('2') do |config|
 
 	config.vm.provision 'shell', privileged: false, inline:
 		"echo 'Downloading and extracting buildroot #{RELEASE}'
-		wget -q -c https://github.com/bfrantz/buildroot/archive/master.tar.gz
+		wget -q -c https://github.com/AlionScience/buildroot/archive/master.tar.gz
 		tar axf master.tar.gz
 		mv buildroot-master buildroot-alion"
 
