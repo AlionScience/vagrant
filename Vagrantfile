@@ -22,6 +22,7 @@ Vagrant.configure('2') do |config|
 	config.vm.provider :virtualbox do |v, override|
 		v.memory = VM_MEMORY
 		v.cpus = VM_CORES
+		v.gui = true
 
 		required_plugins = %w( vagrant-vbguest )
 		required_plugins.each do |plugin|
@@ -45,7 +46,8 @@ Vagrant.configure('2') do |config|
 		"sudo dpkg --add-architecture i386
 		sudo apt-get -q update
 		sudo apt-get -q -y install build-essential libncurses5-dev \
-			git bzr cvs mercurial subversion libc6:i386 unzip
+			git bzr cvs mercurial subversion libc6:i386 unzip unity ubuntu-desktop \
+			eclipse-platform eclipse-cdt eclipse-cdt-autotools eclipse-cdt-launch-remote
 		sudo apt-get -q -y autoremove
 		sudo apt-get -q -y clean"
 
