@@ -32,16 +32,16 @@ Vagrant.configure('2') do |config|
 
 	config.vm.provision 'shell' do |s|
 		s.inline = 'echo Setting up machine name'
-
+    
 		config.vm.provider :vmware_fusion do |v, override|
 			v.vmx['displayname'] = "Buildroot #{RELEASE}"
 		end
-
+    
 		config.vm.provider :virtualbox do |v, override|
 			v.name = "Buildroot #{RELEASE}"
 		end
 	end
-
+    
 	config.vm.provision 'shell', inline:
 		"sudo dpkg --add-architecture i386
 		sudo apt-get -q update
@@ -50,12 +50,16 @@ Vagrant.configure('2') do |config|
 			eclipse-platform eclipse-cdt eclipse-cdt-autotools eclipse-cdt-launch-remote
 		sudo apt-get -q -y autoremove
 		sudo apt-get -q -y clean"
-
+    
 	config.vm.provision 'shell', privileged: false, inline:
 		"echo 'Downloading and extracting buildroot #{RELEASE}'
 		wget -q -c https://github.com/AlionScience/buildroot/archive/master.tar.gz
 		tar axf master.tar.gz
 		mv buildroot-master buildroot-alion"
-
+    
 	config.vm.synced_folder "share/", "/home/vagrant/share"
+	
+	config.vm.provision 'shell', privileged: false, inline:
+		"tar -xf /home/vagrant/share/workspace.tgz -C /home/vagrant
+		rm /home/vagrant/share/workspace.tgz"
 end
